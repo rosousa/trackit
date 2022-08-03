@@ -1,29 +1,28 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Content, Form, Input, Button, Signup } from "../../styles/LoginStyle";
 import Credentials from "../../contexts/Credentials";
-import { login } from "../../services/trackit";
+import { Content, Form, Input, Button, Signup } from "../../styles/LoginStyle";
+import { register } from "../../services/trackit";
 import logo from "../../assets/img/Logo.png";
 
-export default function Login() {
+export default function Register() {
   const { credentials, setCredentials } = useContext(Credentials);
   const navigate = useNavigate();
-
   function handleForm(e) {
     e.preventDefault();
-    const body = { email: credentials.email, password: credentials.password };
-    login(body)
+    const body = { ...credentials };
+    register(body)
       .catch((error) => {
         alert("Ops.. Algo deu errado!");
         console.log(error);
-        console.log(body);
       })
       .then((res) => {
-        console.log(res);
-        console.log(body);
+        if (res) {
+          navigate("/");
+          console.log(res);
+        }
       });
   }
-
   return (
     <Content>
       <img src={logo} alt="logo" />
@@ -53,15 +52,35 @@ export default function Login() {
             }
             required
           />
+          <Input
+            type="text"
+            name="name"
+            placeholder="nome"
+            onChange={(e) =>
+              setCredentials({
+                ...credentials,
+                [e.target.name]: e.target.value,
+              })
+            }
+            required
+          />
+          <Input
+            type="text"
+            name="image"
+            placeholder="foto"
+            onChange={(e) =>
+              setCredentials({
+                ...credentials,
+                [e.target.name]: e.target.value,
+              })
+            }
+            required
+          />
         </>
         <Button>Entrar</Button>
       </Form>
-      <Signup
-        onClick={() => {
-          navigate("/cadastro");
-        }}
-      >
-        Não tem uma conta? Cadastre-se!
+      <Signup onClick={() => navigate("/")}>
+        Já tem uma conta? Faça login!
       </Signup>
     </Content>
   );
