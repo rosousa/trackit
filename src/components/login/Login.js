@@ -8,18 +8,20 @@ import logo from "../../assets/img/Logo.png";
 export default function Login() {
   const { credentials, setCredentials } = useContext(Credentials);
   const navigate = useNavigate();
-
   function handleForm(e) {
     e.preventDefault();
     const body = { email: credentials.email, password: credentials.password };
     login(body)
+      .then((res) => {
+        const AUTH = { ...res.data };
+        setCredentials(AUTH);
+        localStorage.setItem("trackit", JSON.stringify(AUTH));
+        navigate("/hoje");
+        // console.log(res);
+      })
       .catch((error) => {
         alert("Ops.. Algo deu errado!");
         console.log(error);
-        console.log(body);
-      })
-      .then((res) => {
-        console.log(res);
         console.log(body);
       });
   }

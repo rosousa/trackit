@@ -4,6 +4,9 @@ import GlobalStyle from "../styles/GlobalStyle";
 import Login from "./login/Login";
 import Register from "./register/Register";
 import Credentials from "../contexts/Credentials";
+import PrivatePage from "./PrivatePage/PrivatePage";
+import Today from "./today/Today";
+import Habits from "./habits/Habits";
 
 export default function App() {
   const [credentials, setCredentials] = useState({});
@@ -15,6 +18,22 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/cadastro" element={<Register />} />
+            <Route
+              path="/hoje"
+              element={
+                <PrivatePage>
+                  <Today />
+                </PrivatePage>
+              }
+            />
+            <Route
+              path="/habitos"
+              element={
+                <PrivatePage>
+                  <Habits />
+                </PrivatePage>
+              }
+            />
           </Routes>
         </Credentials.Provider>
       </BrowserRouter>

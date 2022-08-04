@@ -8,19 +8,19 @@ import logo from "../../assets/img/Logo.png";
 export default function Register() {
   const { credentials, setCredentials } = useContext(Credentials);
   const navigate = useNavigate();
+  localStorage.clear("trackit");
   function handleForm(e) {
     e.preventDefault();
     const body = { ...credentials };
     register(body)
+      .then((res) => {
+        navigate("/");
+        console.log(res);
+      })
       .catch((error) => {
         alert("Ops.. Algo deu errado!");
         console.log(error);
-      })
-      .then((res) => {
-        if (res) {
-          navigate("/");
-          console.log(res);
-        }
+        console.log(body);
       });
   }
   return (
@@ -77,7 +77,7 @@ export default function Register() {
             required
           />
         </>
-        <Button>Entrar</Button>
+        <Button>Cadastrar</Button>
       </Form>
       <Signup onClick={() => navigate("/")}>
         Já tem uma conta? Faça login!
