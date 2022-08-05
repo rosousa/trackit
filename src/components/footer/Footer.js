@@ -1,17 +1,48 @@
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Refresh from "../../contexts/Refresh";
+import { getTodayHabits } from "../../services/trackit";
 
 export default function Footer() {
-  const percentage = 28;
+  const [todayHabits, setTodayHabits] = useState([]);
+  const { refresh } = useContext(Refresh);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getTodayHabits().then((res) => {
+      setTodayHabits(res.data);
+    });
+  }, [refresh]);
+
+  let RESULT = "0";
+
+  if (todayHabits.length > 0) {
+    const habitsLength = todayHabits.length;
+    const habitsDone = todayHabits.filter((value) => value.done).length;
+    const percentage = ((habitsDone / habitsLength) * 1000).toFixed(0);
+    RESULT =
+      percentage.length > 1 ? percentage.slice(0, percentage.length - 1) : "0";
+  }
 
   return (
     <Bottom>
       <Habits onClick={() => navigate("/habitos")}>Hábitos</Habits>
       <Align onClick={() => navigate("/hoje")}>
-        <CircularProgressbar value={percentage} text="Hoje" />
+        <CircularProgressbar
+          value={RESULT}
+          text="hoje"
+          background
+          backgroundPadding={6}
+          styles={buildStyles({
+            backgroundColor: "#3e98c7",
+            textColor: "#fff",
+            pathColor: "#fff",
+            trailColor: "transparent",
+          })}
+        />
       </Align>
       <History>Histórico</History>
     </Bottom>

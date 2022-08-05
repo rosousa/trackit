@@ -12,7 +12,6 @@ export default function Habits() {
   useEffect(() => {
     getHabits().then((res) => {
       setHabits([...res.data]);
-      console.log(res.data);
     });
   }, [refresh]);
   return (

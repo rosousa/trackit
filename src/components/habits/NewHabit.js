@@ -26,7 +26,6 @@ export default function NewHabit({ setCreateHabit }) {
     }
     createHabit(body)
       .then((res) => {
-        console.log(res);
         setCreateHabit(false);
         setRefresh(!refresh);
       })
