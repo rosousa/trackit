@@ -28,8 +28,45 @@ function getHabits() {
 }
 
 function createHabit(body) {
-  const promisse = axios.get(`${BASE_URL}/habits`, body, getConfig());
+  const promisse = axios.post(`${BASE_URL}/habits`, body, getConfig());
   return promisse;
 }
 
-export { register, login, getHabits, createHabit };
+function deleteHabit(HABIT_ID) {
+  const promisse = axios.delete(`${BASE_URL}/habits/${HABIT_ID}`, getConfig());
+  return promisse;
+}
+
+function getTodayHabits() {
+  const promisse = axios.get(`${BASE_URL}/habits/today`, getConfig());
+  return promisse;
+}
+
+function checkHabit(HABIT_ID) {
+  const promisse = axios.post(
+    `${BASE_URL}/habits/${HABIT_ID}/check`,
+    {},
+    getConfig()
+  );
+  return promisse;
+}
+
+function uncheckHabit(HABIT_ID) {
+  const promisse = axios.post(
+    `${BASE_URL}/habits/${HABIT_ID}/uncheck`,
+    {},
+    getConfig()
+  );
+  return promisse;
+}
+
+export {
+  register,
+  login,
+  getHabits,
+  createHabit,
+  deleteHabit,
+  getTodayHabits,
+  checkHabit,
+  uncheckHabit,
+};

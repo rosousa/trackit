@@ -12,6 +12,7 @@ export default function Header() {
 }
 
 const Top = styled.div`
+  z-index: 10;
   background: #126ba5;
   position: sticky;
   display: flex;

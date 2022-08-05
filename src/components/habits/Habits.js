@@ -1,17 +1,20 @@
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import NewHabit from "./NewHabit";
 import { getHabits } from "../../services/trackit";
-import { useEffect, useState } from "react";
+import Habit from "./Habit";
+import Refresh from "../../contexts/Refresh";
 
 export default function Habits() {
   const [habits, setHabits] = useState([]);
   const [createHabit, setCreateHabit] = useState(false);
+  const { refresh } = useContext(Refresh);
   useEffect(() => {
     getHabits().then((res) => {
       setHabits([...res.data]);
-      console.log(res);
+      console.log(res.data);
     });
-  }, []);
+  }, [refresh]);
   return (
     <>
       <MyHabits>
@@ -19,7 +22,11 @@ export default function Habits() {
         <div onClick={() => setCreateHabit(!createHabit)}>+</div>
       </MyHabits>
       {createHabit ? <NewHabit setCreateHabit={setCreateHabit} /> : ""}
-      {habits.length === 0 ? "" : <p>Melhor tentar carregar os hábitos</p>}
+      {habits.length === 0
+        ? ""
+        : habits.map((value, index) => {
+            return <Habit key={index} info={value}></Habit>;
+          })}
       {habits.length === 0 ? (
         <NoHabits>
           <p>

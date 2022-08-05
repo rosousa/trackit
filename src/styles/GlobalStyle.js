@@ -114,6 +114,7 @@ License: none (public domain)
   }
   body {
     line-height: 1;
+    background-color: #f2f2f2;
   }
   ol,
   ul {

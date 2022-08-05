@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import Days from "./Days";
 import { createHabit } from "../../services/trackit";
+import Refresh from "../../contexts/Refresh";
 
 export default function NewHabit({ setCreateHabit }) {
   const [habitTitle, setHabitTitle] = useState("");
   const [habitDays, setHabitDays] = useState([]);
+  const { refresh, setRefresh } = useContext(Refresh);
   const WEEK_DAYS = [
     { day: "domingo", char: "D", selected: false, number: 7 },
     { day: "segunda", char: "S", selected: false, number: 1 },
@@ -18,9 +20,15 @@ export default function NewHabit({ setCreateHabit }) {
 
   function handleInput() {
     const body = { name: habitTitle, days: habitDays };
+    if (body.name.length === 0 || body.days.length === 0) {
+      alert("Preencha o título e escolha os dias corretamente!");
+      return;
+    }
     createHabit(body)
       .then((res) => {
         console.log(res);
+        setCreateHabit(false);
+        setRefresh(!refresh);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +57,13 @@ export default function NewHabit({ setCreateHabit }) {
         </div>
         <Buttons>
           <Cancel onClick={() => setCreateHabit(false)}>Cancelar</Cancel>
-          <Save onClick={handleInput}>Salvar</Save>
+          <Save
+            onClick={() => {
+              handleInput();
+            }}
+          >
+            Salvar
+          </Save>
         </Buttons>
       </CreateHabit>
     </>

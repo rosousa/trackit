@@ -8,12 +8,11 @@ export default function PrivatePage({ children }) {
     return <p>"You don't have permission!"</p>;
   }
   return (
-    <>
+    <Background>
       <Header />
       <Content>{children}</Content>
       <Footer />
-      <Background></Background>
-    </>
+    </Background>
   );
 }
 
@@ -25,9 +24,5 @@ const Content = styled.div`
 const Background = styled.div`
   z-index: -1;
   background-color: #f2f2f2;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  padding-bottom: 100px;
 `;
