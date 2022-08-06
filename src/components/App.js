@@ -8,40 +8,45 @@ import Refresh from "../contexts/Refresh";
 import PrivatePage from "./PrivatePage/PrivatePage";
 import Today from "./today/Today";
 import Habits from "./habits/Habits";
-import Percentage from "../contexts/Percentage";
+import History from "./history/History";
 
 export default function App() {
   const [credentials, setCredentials] = useState({});
   const [refresh, setRefresh] = useState(false);
-  const [percentage, setPercentage] = useState("0");
   return (
     <>
       <GlobalStyle />
       <BrowserRouter>
         <Credentials.Provider value={{ credentials, setCredentials }}>
           <Refresh.Provider value={{ refresh, setRefresh }}>
-            <Percentage.Provider value={{ percentage, setPercentage }}>
-              <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/cadastro" element={<Register />} />
-                <Route
-                  path="/hoje"
-                  element={
-                    <PrivatePage>
-                      <Today />
-                    </PrivatePage>
-                  }
-                />
-                <Route
-                  path="/habitos"
-                  element={
-                    <PrivatePage>
-                      <Habits />
-                    </PrivatePage>
-                  }
-                />
-              </Routes>
-            </Percentage.Provider>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/cadastro" element={<Register />} />
+              <Route
+                path="/hoje"
+                element={
+                  <PrivatePage>
+                    <Today />
+                  </PrivatePage>
+                }
+              />
+              <Route
+                path="/habitos"
+                element={
+                  <PrivatePage>
+                    <Habits />
+                  </PrivatePage>
+                }
+              />
+              <Route
+                path="/historico"
+                element={
+                  <PrivatePage>
+                    <History />
+                  </PrivatePage>
+                }
+              />
+            </Routes>
           </Refresh.Provider>
         </Credentials.Provider>
       </BrowserRouter>

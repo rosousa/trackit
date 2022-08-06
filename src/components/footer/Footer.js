@@ -44,7 +44,7 @@ export default function Footer() {
           })}
         />
       </Align>
-      <History>Histórico</History>
+      <History onClick={() => navigate("/historico")}>Histórico</History>
     </Bottom>
   );
 }

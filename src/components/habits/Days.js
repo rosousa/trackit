@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Days({ day, habitDays, setHabitDays }) {
+export default function Days({ day, habitDays, setHabitDays, submitted }) {
   const [weekday, setWeekDay] = useState({ ...day });
   function handleEvent() {
     setWeekDay({ ...weekday, selected: !weekday.selected });
@@ -16,9 +16,17 @@ export default function Days({ day, habitDays, setHabitDays }) {
   }
 
   return (
-    <Day onClick={handleEvent} selected={weekday.selected}>
-      <p>{day.char}</p>
-    </Day>
+    <>
+      {submitted ? (
+        <Day selected={weekday.selected}>
+          <p>{day.char}</p>
+        </Day>
+      ) : (
+        <Day onClick={handleEvent} selected={weekday.selected}>
+          <p>{day.char}</p>
+        </Day>
+      )}
+    </>
   );
 }
 

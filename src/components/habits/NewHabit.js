@@ -3,10 +3,12 @@ import styled from "styled-components";
 import Days from "./Days";
 import { createHabit } from "../../services/trackit";
 import Refresh from "../../contexts/Refresh";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function NewHabit({ setCreateHabit }) {
   const [habitTitle, setHabitTitle] = useState("");
   const [habitDays, setHabitDays] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
   const { refresh, setRefresh } = useContext(Refresh);
   const WEEK_DAYS = [
     { day: "domingo", char: "D", selected: false, number: 7 },
@@ -20,17 +22,21 @@ export default function NewHabit({ setCreateHabit }) {
 
   function handleInput() {
     const body = { name: habitTitle, days: habitDays };
+    setSubmitted(true);
     if (body.name.length === 0 || body.days.length === 0) {
       alert("Preencha o título e escolha os dias corretamente!");
+      setSubmitted(false);
       return;
     }
     createHabit(body)
       .then((res) => {
         setCreateHabit(false);
         setRefresh(!refresh);
+        setSubmitted(false);
       })
       .catch((err) => {
         console.log(err);
+        setSubmitted(false);
       });
   }
 
@@ -38,11 +44,15 @@ export default function NewHabit({ setCreateHabit }) {
     <>
       <CreateHabit>
         <div>
-          <input
-            type="text"
-            placeholder="nome do hábito"
-            onChange={(e) => setHabitTitle(e.target.value)}
-          />
+          {submitted ? (
+            <input placeholder="nome do hábito" disabled />
+          ) : (
+            <input
+              type="text"
+              placeholder="nome do hábito"
+              onChange={(e) => setHabitTitle(e.target.value)}
+            />
+          )}
           <AlignItems>
             {WEEK_DAYS.map((value, index) => (
               <Days
@@ -50,6 +60,7 @@ export default function NewHabit({ setCreateHabit }) {
                 day={value}
                 habitDays={habitDays}
                 setHabitDays={setHabitDays}
+                submitted={submitted}
               />
             ))}
           </AlignItems>
@@ -61,7 +72,19 @@ export default function NewHabit({ setCreateHabit }) {
               handleInput();
             }}
           >
-            Salvar
+            {submitted ? (
+              <ThreeDots
+                height="40"
+                width="40"
+                radius="9"
+                color="#fff"
+                ariaLabel="three-dots-loading"
+                wrapperStyle
+                wrapperClass
+              />
+            ) : (
+              "Salvar"
+            )}
           </Save>
         </Buttons>
       </CreateHabit>
@@ -111,6 +134,9 @@ const Buttons = styled.div`
 
 const Save = styled.button`
   background: #52b6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
   width: 84px;
   height: 35px;

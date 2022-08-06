@@ -38,6 +38,9 @@ const Input = styled.input`
 
 const Button = styled.button`
   background: #52b6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 45px;
   font-size: 18px;

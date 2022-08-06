@@ -14,6 +14,21 @@ export default function Today() {
     });
   }, [refresh]);
 
+  const dayWords = [
+    { pt: "Segunda", en: "Monday" },
+    { pt: "Terça", en: "Tuesday" },
+    { pt: "Quarta", en: "Wednesday" },
+    { pt: "Quinta", en: "Thursday" },
+    { pt: "Sexta", en: "Friday" },
+    { pt: "Sábado", en: "Saturday" },
+    { pt: "Domingo", en: "Sunday" },
+  ];
+
+  const DAY = dayWords.filter((value) => {
+    const EN_DAY = dayjs().format("dddd");
+    return value.en === EN_DAY;
+  });
+
   let RESULT = "0";
 
   if (todayHabits.length > 0) {
@@ -27,11 +42,9 @@ export default function Today() {
   return (
     <Background>
       <DayInfo>
-        <h1>
-          {`${dayjs().format("dddd")}, ${dayjs().format("DD")}/${dayjs().format(
-            "MM"
-          )}`}
-        </h1>
+        <h1>{`${DAY[0].pt}, ${dayjs().format("DD")}/${dayjs().format(
+          "MM"
+        )}`}</h1>
         {RESULT !== "0" ? (
           <Concluded>{RESULT}% dos hábitos concluídos</Concluded>
         ) : (
