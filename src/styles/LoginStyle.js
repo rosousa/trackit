@@ -48,6 +48,7 @@ const Button = styled.button`
   cursor: pointer;
   border: none;
   border-radius: 5px;
+  opacity: ${(props) => (props.submitted ? 0.7 : 1)};
 `;
 
 const Signup = styled.button`
@@ -57,6 +58,7 @@ const Signup = styled.button`
   text-decoration-line: underline;
   cursor: pointer;
   border: none;
+  opacity: ${(props) => (props.submitted ? 0.7 : 1)};
 `;
 
 export { Content, Form, Button, Signup, Input };

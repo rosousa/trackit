@@ -96,7 +96,7 @@ export default function Register() {
             />
           )}
         </>
-        <Button>
+        <Button submitted={submitted}>
           {submitted ? (
             <ThreeDots
               height="60"

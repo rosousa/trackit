@@ -16,12 +16,23 @@ export default function TodayHabit({ value, refresh, setRefresh }) {
       });
     }
   }
+  function checkSequence() {
+    if (value.currentSequence === 0) {
+      return "#666666";
+    }
+    if (value.currentSequence === value.highestSequence || isDone) {
+      return "#8FC549";
+    }
+    return "#666666";
+  }
   return (
     <Content isDone={isDone}>
-      <HabitInfo>
+      <HabitInfo checkSequence={checkSequence}>
         <h1>{value.name}</h1>
         <div>
-          <p>Sequência atual: {value.currentSequence} dias</p>
+          <p>
+            Sequência atual: <span>{value.currentSequence} dias</span>
+          </p>
           <p>Seu recorde: {value.highestSequence} dias</p>
         </div>
       </HabitInfo>
@@ -63,6 +74,9 @@ const HabitInfo = styled.div`
     line-height: 25px;
   }
   & p {
-    font-size: 13px;
+    font-size: 14px;
+  }
+  & span {
+    color: ${(props) => props.checkSequence()};
   }
 `;

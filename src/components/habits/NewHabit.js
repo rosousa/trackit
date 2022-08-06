@@ -65,11 +65,21 @@ export default function NewHabit({ setCreateHabit }) {
             ))}
           </AlignItems>
         </div>
-        <Buttons>
-          <Cancel onClick={() => setCreateHabit(false)}>Cancelar</Cancel>
+        <Buttons submitted={submitted}>
+          <Cancel
+            onClick={() => {
+              if (!submitted) {
+                setCreateHabit(false);
+              }
+            }}
+          >
+            Cancelar
+          </Cancel>
           <Save
             onClick={() => {
-              handleInput();
+              if (!submitted) {
+                handleInput();
+              }
             }}
           >
             {submitted ? (
@@ -130,6 +140,7 @@ const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
   column-gap: 10px;
+  opacity: ${(props) => (props.submitted ? 0.7 : 1)};
 `;
 
 const Save = styled.button`

@@ -74,7 +74,7 @@ export default function Login() {
             />
           )}
         </>
-        <Button>
+        <Button submitted={submitted}>
           {submitted ? (
             <ThreeDots
               height="60"

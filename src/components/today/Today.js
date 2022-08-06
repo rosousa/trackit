@@ -32,7 +32,6 @@ export default function Today() {
   const habitsLength = todayHabits.length;
   const habitsDone = todayHabits.filter((value) => value.done).length;
   const percentage = ((habitsDone / habitsLength) * 100).toFixed(0);
-  console.log(percentage);
 
   return (
     <Background>
@@ -40,7 +39,7 @@ export default function Today() {
         <h1>{`${DAY[0].pt}, ${dayjs().format("DD")}/${dayjs().format(
           "MM"
         )}`}</h1>
-        {percentage !== "0" ? (
+        {percentage !== "0" && !isNaN(percentage) ? (
           <Concluded>{percentage}% dos hábitos concluídos</Concluded>
         ) : (
           <NotConcluded>Nenhum hábito concluído ainda</NotConcluded>
