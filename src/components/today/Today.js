@@ -29,15 +29,10 @@ export default function Today() {
     return value.en === EN_DAY;
   });
 
-  let RESULT = "0";
-
-  if (todayHabits.length > 0) {
-    const habitsLength = todayHabits.length;
-    const habitsDone = todayHabits.filter((value) => value.done).length;
-    const percentage = ((habitsDone / habitsLength) * 1000).toFixed(0);
-    RESULT =
-      percentage.length > 1 ? percentage.slice(0, percentage.length - 1) : "0";
-  }
+  const habitsLength = todayHabits.length;
+  const habitsDone = todayHabits.filter((value) => value.done).length;
+  const percentage = ((habitsDone / habitsLength) * 100).toFixed(0);
+  console.log(percentage);
 
   return (
     <Background>
@@ -45,8 +40,8 @@ export default function Today() {
         <h1>{`${DAY[0].pt}, ${dayjs().format("DD")}/${dayjs().format(
           "MM"
         )}`}</h1>
-        {RESULT !== "0" ? (
-          <Concluded>{RESULT}% dos hábitos concluídos</Concluded>
+        {percentage !== "0" ? (
+          <Concluded>{percentage}% dos hábitos concluídos</Concluded>
         ) : (
           <NotConcluded>Nenhum hábito concluído ainda</NotConcluded>
         )}
