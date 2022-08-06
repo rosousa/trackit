@@ -31,7 +31,7 @@ export default function Login() {
       })
       .catch((error) => {
         setSubmitted(false);
-        alert("Ops.. Algo deu errado!");
+        alert("Email do usuário ou senha incorreto!");
         console.log(error);
       });
   }
