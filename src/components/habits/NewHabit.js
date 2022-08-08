@@ -11,7 +11,7 @@ export default function NewHabit({ setCreateHabit }) {
   const [submitted, setSubmitted] = useState(false);
   const { refresh, setRefresh } = useContext(Refresh);
   const WEEK_DAYS = [
-    { day: "domingo", char: "D", selected: false, number: 7 },
+    { day: "domingo", char: "D", selected: false, number: 0 },
     { day: "segunda", char: "S", selected: false, number: 1 },
     { day: "terça", char: "T", selected: false, number: 2 },
     { day: "quarta", char: "Q", selected: false, number: 3 },
@@ -33,6 +33,8 @@ export default function NewHabit({ setCreateHabit }) {
         setCreateHabit(false);
         setRefresh(!refresh);
         setSubmitted(false);
+        console.log(res);
+        console.log(body);
       })
       .catch((err) => {
         console.log(err);

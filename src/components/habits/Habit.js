@@ -7,7 +7,7 @@ import { deleteHabit } from "../../services/trackit";
 export default function Habit({ info }) {
   const { refresh, setRefresh } = useContext(Refresh);
   const WEEK_DAYS = [
-    { day: "domingo", char: "D", number: 7 },
+    { day: "domingo", char: "D", number: 0 },
     { day: "segunda", char: "S", number: 1 },
     { day: "terça", char: "T", number: 2 },
     { day: "quarta", char: "Q", number: 3 },
